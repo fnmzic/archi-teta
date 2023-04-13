@@ -7,90 +7,94 @@
 
 ```plantuml
 @startuml
-' Логическая модель данных в варианте UML Class Diagram (альтернатива ER-диаграмме).
-namespace ShoppingCart {
+!define ENTITYMODIFIERS
 
- class ShoppingCart
- {
-  id : string
-  createDate : datetime
-  updateDate : datetime
-  customer : Customer
-  price : ShoppingCartPrice
-  cartItems : CartItem[]
- }
 
- class ShoppingCartPrice
- {
-  type : CartItemPrice
- }
- class CartItemPrice
- {
-  type : CartItemPriceType
- }
+package "helloconf" {
+  package Participants {
+    class Participant {
+      +id: int
+      +name: string
+      +email: string
+      +phone: string
+    }
+    class Speaker {
+      +id: int
+      +name: string
+      +email: string
+      +phone: string
+      +company: string
+    }
+    class Sponsor {
+      +id: int
+      +name: string
+      +email: string
+      +phone: string
+      +company: string
+    }
+    class Lessor {
+      +id: int
+      +name: string
+      +email: string
+      +phone: string
+    }
+    class Specialist {
+      +id: int
+      +name: string
+      +email: string
+      +phone: string
+    }
+     class Organizer {
+      +id: int
+      +name: string
+      +email: string
+      +phone: string
+    }
+  }
+   
 
- enum CartPriceType
- {
-  total
-  grandTotal
-  offeringDiscount
-  couponsDiscount
- }
+  package Events {
+    class Event {
+      +id: int
+      +name: string
+      +description: string
+      +start_date: date
+      +end_date: date
+      +type: string
+    }
+    class Schedule {
+      +id: int
+      +event_id: int
+      +start_time: time
+      +end_time: time
+      +location: string
+    }
+    class Ticket {
+      +id: int
+      +event_id: int
+      +type: string
+      +price: float
+    }
+    class Invitation {
+      +id: int
+      +event_id: int
+      +recipient_id: int
+      +sender_id: int
+      +message: string
+    }
+  }
 
- class CartItem
- {
-  id : string
-  quantity : int
-  offering : Offering
-  relationship : CartItemRelationShip[]
-  price : CartItemPrice[]
-  status : CartItemStatus
- }
 
-  class Customer
- {
-  id : string
- }
- 
- class Offering
- {
-  id : string
-  isQuantifiable : boolean
-  actionType : OfferingActionType
-  validFor : ValidFor
- }
   
- class ProductSpecificationRef
- {
-  id : string
- }
- 
- ShoppingCart *-- "1..*" ShoppingCartPrice
- ShoppingCartPrice -- CartPriceType
- ShoppingCart *-- "*" CartItem
- CartItem *-- "*" CartItemPrice
- CartItemPrice -- CartPriceType
- CartItem *-- "1" Offering
- Offering *-- "1" ProductSpecificationRef
- Offering *-- "0..1" ProductConfiguration
- ShoppingCart *-- "1" Customer
-}
-
-namespace Ordering {
- ProductOrder *-- OrderItem
- OrderItem *-- Product
- Product *-- ProductSpecificationRef
- ProductOrder *-- Party
-}
-
-namespace ProductCatalog {
- ShoppingCart.ProductSpecificationRef ..> ProductSpecification : ref
- Ordering.ProductSpecificationRef ..> ProductSpecification : ref
-}
-
-namespace CX {
- ShoppingCart.Customer ..> Customer : ref
- Ordering.Party ..> Customer : ref
+  Events.Schedule -- Events.Event : schedule
+  Events.Ticket -- Events.Event : ticket
+  Events.Invitation -- Events.Event : invitation
+  Events.Invitation -- Participants.Speaker : invitee
+  Events.Ticket -- Participants.Participant : attendee
+  Sponsor --|> Event
+  Lessor --|> Event
+  Specialist --|> Event
+  Organizer -> Event
 }
 @enduml
 ```
