@@ -8,14 +8,22 @@
 
 LAYOUT_WITH_LEGEND()
 
-Person(pbc, "Personal Banking Customer", "A customer of the bank, with personal bank accounts.")
-System(ibs, "Internet Banking System", "Allows customers to view information about their bank accounts, and make payments.")
-System_Ext(es, "E-mail system", "The internal Microsoft Exchange e-mail system.")
-System_Ext(mbs, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.")
+title HELLOCONF C4
 
-Rel(pbc, ibs, "Uses")
-Rel(es, pbc, "Sends e-mails to")
-Rel(ibs, es, "Sends e-mails", "SMTP")
-Rel(ibs, mbs, "Uses")
+Person(user, "Organizers")
+
+System(helloconf, "System") {
+  Container(congf, "helloconf", "Web application for managing conference organization") {
+    Container(database, "Database", "Database for storing conference information")
+    Container(socialmedia, "Social media", "Social media platforms for conference promotion")
+    Container(thirdpartyservices, "Third-party services", "Third-party services for conference support")
+  }
+}
+
+Rel(user, congf, "Uses")
+Rel(congf, database, "Reads and writes data to")
+Rel(congf, socialmedia, "Promotes conference through")
+Rel(congf, thirdpartyservices, "Integrates with")
+
 @enduml
 ```
