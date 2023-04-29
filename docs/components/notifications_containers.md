@@ -9,7 +9,7 @@ LAYOUT_WITH_LEGEND()
 LAYOUT_LANDSCAPE()
 
 System_Boundary(system, "Управление нотификациями", "") {
-  ContainerDb(usn, "user-notify-srv", "Java, Spring", "Сервис управления нотификациями")
+  Container(usn, "user-notify-srv", "Java, Spring", "Сервис управления нотификациями")
   ContainerDb(db, "interactions", "PostgreSQLP", "Хранилище нотификаций")
   ContainerQueue(mq, "mail-queue", "RabbitMQ", "Очередь электронных писем")
   ContainerQueue(sq, "sms-queue", "RabbitMQ", "Очередь sms")
