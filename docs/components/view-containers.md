@@ -13,5 +13,8 @@ System_Boundary(system, "Витрина событий", "") {
   Container(reg, "conf-reg-srv", "Java, Spring", "Сервис регистрации на конференции")
   ContainerDb(db, "conf-management-data", "PostgreSQLP", "Хранилище конференций и зарегистрированных участников")
 }
+Rel_R(view, reg, "Передает данные пользователя и выбранное событие", "HTTP")
+Rel_R(reg, db, "Читает, записывает данные о регистрации", "HTTP")
+Rel_U(view, db, "Читает, записывает данные о мероприятиях", "JDBC, SQL")
 @enduml
 ```
