@@ -14,5 +14,11 @@ System_Boundary(system, "Система управления событиями"
   ContainerDb(db, "conf-management-data", "PostgreSQLP", "Хранилище конференций и мероприятий")
   ContainerDb(dbimages, "conf-management-images", "MongoDB", "Хранилище картинок для мероприятий")
 }
+
+Rel_D(auth, events, "Передает авторизованные запросы", "HTTP")
+Rel(events, db, "Читает, записывает данные", "JDBC, SQL")
+Rel(events, dbimages, "Читает, записывает данные", "MongoDB")
+
+
 @enduml
 ```
