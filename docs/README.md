@@ -205,6 +205,7 @@ User --> "Отправка уведомлений"
 -->
 - [ADR.001 выбор категории системы](adr/ADR_1_category.md)
 - [ADR.002 выбор шаблона интеграции](adr/ADR_2_template.md)
+- [ADR.003 выбор mongoDB](adr/ADR_3_mongoDB.md)
 
 ### [Контекст решения](context/context.md)
 
